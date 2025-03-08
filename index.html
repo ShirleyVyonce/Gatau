@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #1E90FF, #87CEFA, #ADD8E6, #B0E0E6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #main {
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        #startButton {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #fff;
+            color: #1E90FF;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        #startButton:hover {
+            background: #1E90FF;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        #cakeImage {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            display: none;
+            margin: 20px auto;
+            animation: float 3s ease-in-out infinite, fadeIn 2s ease-out;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+        }
+
+        #confetti, #balloons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fff;
+            display: none;
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 1s ease-out, glow 2s infinite alternate;
+        }
+
+        .kazuha {
+            width: 150px;
+            height: auto;
+            position: absolute;
+            bottom: 20px;
+            display: none;
+            animation: float 4s ease-in-out infinite, fadeIn 2s ease-out;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+        }
+
+        .kazuha.left {
+            left: 20px;
+            transform: scaleX(-1); /* Membalik gambar secara horizontal */
+        }
+
+        .kazuha.right {
+            right: 20px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 5px 5px 10px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        .balloon {
+            width: 50px;
+            height: 70px;
+            position: absolute;
+            bottom: -10%;
+            animation: floatUp 5s linear infinite;
+        }
+
+        /* Efek Ledakan */
+        #explosion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 200px; /* Diperbesar */
+            height: 200px; /* Diperbesar */
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: explode 0.5s ease-out forwards;
+            display: none;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(15); /* Diperbesar */
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <button id="startButton">Klik Disini</button>
+        <canvas id="confetti"></canvas>
+        <canvas id="balloons"></canvas>
+        
+        <!-- Gambar Kue -->
+        <img id="cakeImage" src="image.png" alt="Blue Birthday Cake">
+        
+        <!-- Pesan Happy Birthday -->
+        <h1 id="message" class="animate__animated animate__fadeIn">Happy Birthday!</h1>
+
+        <!-- Gambar Kazuha (Kiri dan Kanan) -->
+        <img id="kazuhaLeft" class="kazuha left" src="genshin_impact_kazuha_transparent_png_by_vent1slyre_dfl62wz-fullview.png" alt="Kazuha Genshin Impact">
+        <img id="kazuhaRight" class="kazuha right" src="genshin_impact_kazuha_transparent_png_by_vent1slyre_dfl62wz-fullview.png" alt="Kazuha Genshin Impact">
+
+        <!-- Efek Ledakan -->
+        <div id="explosion"></div>
+    </div>
+
+    <!-- Audio untuk Musik Latar -->
+    <audio id="birthdayMusic" src="happy-birthday-song.mp3" loop></audio>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const cakeImage = document.getElementById('cakeImage');
+        const message = document.getElementById('message');
+        const confettiCanvas = document.getElementById('confetti');
+        const balloonsCanvas = document.getElementById('balloons');
+        const kazuhaLeft = document.getElementById('kazuhaLeft');
+        const kazuhaRight = document.getElementById('kazuhaRight');
+        const explosion = document.getElementById('explosion');
+        const birthdayMusic = document.getElementById('birthdayMusic');
+        const ctxConfetti = confettiCanvas.getContext('2d');
+        const ctxBalloons = balloonsCanvas.getContext('2d');
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            explosion.style.display = 'block'; // Tampilkan efek ledakan
+
+            // Setelah efek ledakan selesai, tampilkan elemen-elemen utama
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                cakeImage.style.display = 'block';
+                message.style.display = 'block';
+                kazuhaLeft.style.display = 'block';
+                kazuhaRight.style.display = 'block';
+                birthdayMusic.play(); // Memutar musik
+                launchConfetti();
+                launchBalloons();
+            }, 500); // Sesuaikan waktu dengan durasi animasi ledakan
+        });
+
+        function launchConfetti() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+
+            const confettiPieces = Array.from({ length: 300 }, () => ({
+                x: Math.random() * confettiCanvas.width,
+                y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                color: `hsl(${Math.random() * 240 + 180}, 100%, 70%)`, // Hanya warna biru
+                rotation: Math.random() * 360,
+                size: Math.random() * 10 + 5,
+                speed: Math.random() * 3 + 1,
+            }));
+
+            function drawConfetti() {
+                ctxConfetti.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+                confettiPieces.forEach(piece => {
+                    ctxConfetti.save();
+                    ctxConfetti.translate(piece.x, piece.y);
+                    ctxConfetti.rotate((piece.rotation * Math.PI) / 180);
+                    ctxConfetti.fillStyle = piece.color;
+                    ctxConfetti.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+                    ctxConfetti.restore();
+                    piece.y += piece.speed;
+
+                    if (piece.y > confettiCanvas.height) {
+                        piece.y = -piece.size;
+                        piece.x = Math.random() * confettiCanvas.width;
+                    }
+
+                    piece.rotation += 5;
+                });
+
+                requestAnimationFrame(drawConfetti);
+            }
+
+            drawConfetti();
+        }
+
+        function launchBalloons() {
+            balloonsCanvas.width = window.innerWidth;
+            balloonsCanvas.height = window.innerHeight;
+
+            const balloonColors = ["#1E90FF", "#87CEFA", "#ADD8E6", "#B0E0E6"]; // Warna biru saja
+            const balloons = [];
+
+            function createBalloon() {
+                const balloon = {
+                    x: Math.random() * balloonsCanvas.width,
+                    y: balloonsCanvas.height,
+                    color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
+                    size: Math.random() * 20 + 30,
+                    speed: Math.random() * 2 + 1
+                };
+                balloons.push(balloon);
+            }
+
+            function drawBalloons() {
+                ctxBalloons.clearRect(0, 0, balloonsCanvas.width, balloonsCanvas.height);
+
+                balloons.forEach((balloon, index) => {
+                    ctxBalloons.beginPath();
+                    ctxBalloons.arc(balloon.x, balloon.y, balloon.size, 0, Math.PI * 2);
+                    ctxBalloons.fillStyle = balloon.color;
+                    ctxBalloons.fill();
+                    balloon.y -= balloon.speed;
+
+                    if (balloon.y + balloon.size < 0) {
+                        balloons.splice(index, 1);
+                    }
+                });
+
+                requestAnimationFrame(drawBalloons);
+            }
+
+            setInterval(createBalloon, 500); // Mengurangi frekuensi pembuatan balon
+            drawBalloons();
+        }
+    </script>
+</body>
+
+</html>
