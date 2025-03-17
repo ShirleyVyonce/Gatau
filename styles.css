@@ -1,0 +1,366 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(45deg, #1E90FF, #87CEFA, #ADD8E6, #B0E0E6);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#main {
+    text-align: center;
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+}
+
+#startButton {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #fff;
+    color: #1E90FF;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#startButton:hover {
+    background: #1E90FF;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+#cakeImage {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    display: none;
+    margin: 20px auto;
+    animation: float 3s ease-in-out infinite, fadeIn 2s ease-out;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+#confetti, #balloons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #fff;
+    display: none;
+    margin-top: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.3);
+    animation: zoomIn 1s ease-out, glow 2s infinite alternate;
+}
+
+.kazuha {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: 20px;
+    display: none;
+    animation: float 4s ease-in-out infinite, fadeIn 2s ease-out;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+.kazuha.left {
+    left: 20px;
+    transform: scaleX(-1); /* Membalik gambar secara horizontal */
+}
+
+.kazuha.right {
+    right: 20px;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1), 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+.balloon {
+    width: 50px;
+    height: 70px;
+    position: absolute;
+    bottom: -10%;
+    animation: floatUp 5s linear infinite;
+}
+
+/* Efek Ledakan */
+#explosion {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200px; /* Diperbesar */
+    height: 200px; /* Diperbesar */
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: explode 0.5s ease-out forwards;
+    display: none;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(15); /* Diperbesar */
+        opacity: 0;
+    }
+}
+
+@keyframes openLetter {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeInContent {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Timer */
+#timer {
+    font-size: 3em;
+    color: #fff;
+    display: none;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.3);
+    animation: zoomIn 1s ease-out, glow 2s infinite alternate;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* Surat Ucapan */
+#letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    display: none;
+    z-index: 10;
+}
+
+#letterEnvelope {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    perspective: 1000px;
+    background: #f9f9f9; /* Warna dasar amplop */
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#envelopeFront, #envelopeBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f9f9f9;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backface-visibility: hidden;
+    transition: transform 1s ease-in-out;
+}
+
+#envelopeFront {
+    transform-origin: bottom;
+    z-index: 2;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+    background: linear-gradient(135deg, #1E90FF, #87CEFA);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#envelopeBack {
+    transform: rotateX(180deg);
+    z-index: 1;
+    background: linear-gradient(135deg, #87CEFA, #1E90FF);
+    border-radius: 10px;
+}
+
+#openText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+#letterContent {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    position: relative;
+    z-index: 0;
+}
+
+/* Animasi Surat Terbuka */
+#letter.open #envelopeFront {
+    transform: rotateX(180deg);
+}
+
+#letter.open #envelopeBack {
+    transform: rotateX(0deg);
+}
+
+#letter.open #letterContent {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efek Segel Amplop */
+#envelopeFront::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Efek Garis Dekoratif pada Amplop */
+#envelopeFront::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%);
+}
+
+#envelopeBack::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%);
+}
+
+/* Efek Bayangan pada Amplop */
+#letterEnvelope::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    width: 80%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+#closeButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+#closeButton:hover {
+    background: #87CEFA;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
